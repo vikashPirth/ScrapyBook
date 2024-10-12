@@ -1,10 +1,11 @@
+import hashlib
 import pymongo 
 from itemadapter import ItemAdapter 
 
 
 class MongoPipeline:
 
-    COLLECTION_NAME = "BOOKS"
+    COLLECTION_NAME = "books"
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
@@ -13,8 +14,8 @@ class MongoPipeline:
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
-            mongo_uri = crawler.get("MONGO_URI"),
-            mongo_dn = crawler.get("MONGO_DATABASE")
+            mongo_uri = crawler.settings.get("MONGO_URI"),
+            mongo_db = crawler.settings.get("MONGO_DATABASE")
         )
     
 
